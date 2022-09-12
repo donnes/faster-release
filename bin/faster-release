@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+const { run } = require('../src/cli')
+
+// run the CLI with the current process arguments
+run(process.argv)
