@@ -1,0 +1,22 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [faster-release](https://github.com/donnes/faster-release) for commit guidelines.
+
+## 🚀 Release v<%= props.version -%> 🚀
+
+<% if (props.ticketsContent.length) { -%>
+### Jira tickets
+
+<% props.ticketsContent.forEach(function(content){ -%>
+  <%= content %>
+<% }); -%>
+<% } -%>
+<% if (props.othersContent.length) { -%>
+### Others
+
+<% props.othersContent.forEach(function(content){ -%>
+  <%= content %>
+<% }); -%>
+<% } -%>
+
+<%= props.previousContent -%>

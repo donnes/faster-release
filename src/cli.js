@@ -7,7 +7,7 @@ async function run(argv) {
   // create a CLI runtime
   const cli = build()
     .brand('faster-release')
-    .exclude(['semver', 'http', 'template'])
+    .exclude(['semver', 'http'])
     .src(__dirname)
     .plugins('./node_modules', { matching: 'faster-release-*', hidden: true })
     .help() // provides default for help, h, --help, -h
