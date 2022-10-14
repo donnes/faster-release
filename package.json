@@ -2,7 +2,7 @@
   "name": "faster-release",
   "version": "1.0.0",
   "description": "Manage releases versioning easily with Faster Release CLI",
-  "private": true,
+  "private": false,
   "author": {
     "name": "Donald Silveira",
     "email": "donaldsilveira@gmail.com",
