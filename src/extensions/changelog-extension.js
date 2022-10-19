@@ -73,7 +73,7 @@ module.exports = async (toolbox) => {
 
     await toolbox.template.generate({
       template: 'CHANGELOG.md.ejs',
-      target: `${filesystem.cwd()}/CHANGELOG2.md`,
+      target: `${filesystem.cwd()}/CHANGELOG.md`,
       props: { version, previousContent, ...contents },
     })
   }
