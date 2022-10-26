@@ -25,6 +25,7 @@ module.exports = async (toolbox) => {
     const ticketCommits = commits.filter((commit) =>
       commit.commit.message.match(JIRA_PATTERN)
     )
+
     const otherCommits = commits.filter((commit) => {
       const message = commit.commit.message.toLowerCase()
       return !message.match(JIRA_PATTERN) && !message.includes('release')
@@ -34,7 +35,7 @@ module.exports = async (toolbox) => {
       const title = getCommitMessageAsTitle(commit.message)
       return `- ${renderJiraLink(
         JIRA_LINK,
-        renderGithubPullRequestLink(title)
+        renderGithubPullRequestLink(GITHUB_PR_LINK, title)
       )}`
     })
 
