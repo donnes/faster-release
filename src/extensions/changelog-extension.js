@@ -57,7 +57,7 @@ module.exports = async (toolbox) => {
 
     const content = filesystem.read(file)
 
-    return content.substring(/## .* Release v/.exec(content).index)
+    return content.substring(/## .* Release v/.exec(content)?.index)
   }
 
   async function generate(
