@@ -111,6 +111,8 @@ module.exports = {
     spinner.start(bold(`Fetching commits history`))
     let commits = []
     try {
+      await github.checkPersonalAccessToken(spinner)
+
       commits = await github.getCommits({
         base: currentTag,
         head: 'main',

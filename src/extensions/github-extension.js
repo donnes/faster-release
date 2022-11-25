@@ -16,22 +16,7 @@ module.exports = (toolbox) => {
   // location of the github config file
   const GITHUB_CONFIG = `${filesystem.homedir()}/.${brand}/.github`
 
-  // memoize the Github Personal Access Token once we retrieve it
-  let githubPersonalAccessToken = null
-
   const octokit = new Octokit()
-
-  // get the Github Personal Access Token
-  async function getPersonalAccessToken() {
-    // if we've already retrieved it, return that
-    if (githubPersonalAccessToken) return githubPersonalAccessToken
-
-    // get it from the config file?
-    githubPersonalAccessToken = await readPersonalAccessToken()
-
-    // return the token
-    return githubPersonalAccessToken
-  }
 
   // read an existing Github Personal Access Token from the `GITHUB_CONFIG` file, defined above
   async function readPersonalAccessToken() {
@@ -43,14 +28,31 @@ module.exports = (toolbox) => {
     return null
   }
 
-  // save a new Github Personal Access Token to the `GITHUB_CONFIG` file
-  async function savePersonalAccessToken(token) {
-    return filesystem.writeAsync(GITHUB_CONFIG, token)
+  /**
+   * checkPersonalAccessToken
+   * @param {import('ora').Ora} spinner
+   */
+  async function checkPersonalAccessToken(spinner) {
+    const token = await readPersonalAccessToken()
+
+    console.log(token)
+
+    if (!token) {
+      spinner.stop()
+      const result = await prompt.ask([
+        {
+          type: 'input',
+          name: 'token',
+          message: 'Please, enter your Github Personal Access Token',
+        },
+      ])
+      await filesystem.writeAsync(GITHUB_CONFIG, result.token)
+    }
   }
 
   // get list of commits of a repository
   async function getCommits({ base = 'v0.0.0', head = 'main' }) {
-    await getPersonalAccessToken()
+    const githubPersonalAccessToken = await readPersonalAccessToken()
 
     const { data } = await octokit.request(
       `GET /repos/{owner}/{repo}/compare/{basehead}`,
@@ -74,8 +76,7 @@ module.exports = (toolbox) => {
 
   // attach our tools to the toolbox
   toolbox.github = {
-    getPersonalAccessToken,
-    savePersonalAccessToken,
+    checkPersonalAccessToken,
     getCommits,
     resetConfigs,
   }
