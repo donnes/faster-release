@@ -2,6 +2,9 @@ const semver = require('semver')
 const { isEmpty } = require('radash')
 const { cliHeading } = require('../utils/pretty')
 
+/**
+ * @type {import('gluegun').GluegunCommand}
+ */
 module.exports = {
   dashed: true,
   name: 'new',

@@ -1,5 +1,9 @@
 const { Octokit } = require('octokit')
 
+/**
+ * Github Extension
+ * @param {import('gluegun').GluegunToolbox} toolbox
+ */
 module.exports = (toolbox) => {
   const { config, runtime, filesystem, prompt } = toolbox
   const { loadConfig } = config

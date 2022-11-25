@@ -1,3 +1,6 @@
+/**
+ * @type {import('gluegun').GluegunCommand}
+ */
 module.exports = {
   description: '🔥 The Faster Release CLI 🔥',
   run: async (toolbox) => {

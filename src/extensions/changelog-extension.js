@@ -5,6 +5,10 @@ const {
   renderJiraLink,
 } = require('../utils/changelog-template')
 
+/**
+ * Changelog Extension
+ * @param {import('gluegun').GluegunToolbox} toolbox
+ */
 module.exports = async (toolbox) => {
   const { config, runtime, filesystem } = toolbox
   const { loadConfig } = config

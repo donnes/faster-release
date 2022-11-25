@@ -1,5 +1,8 @@
 const { p, command, heading, cliHeading } = require('../utils/pretty')
 
+/**
+ * @type {import('gluegun').GluegunCommand}
+ */
 module.exports = {
   dashed: true,
   name: 'help',

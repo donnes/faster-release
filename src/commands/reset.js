@@ -1,6 +1,9 @@
 const CONFIRM_MESSAGE =
   'Are you sure you want to reset the Github Personal Access Token?'
 
+/**
+ * @type {import('gluegun').GluegunCommand}
+ */
 module.exports = {
   name: 'reset',
   run: async (toolbox) => {
