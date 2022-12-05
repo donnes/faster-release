@@ -35,8 +35,6 @@ module.exports = (toolbox) => {
   async function checkPersonalAccessToken(spinner) {
     const token = await readPersonalAccessToken()
 
-    console.log(token)
-
     if (!token) {
       spinner.stop()
       const result = await prompt.ask([
