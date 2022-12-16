@@ -169,6 +169,38 @@ module.exports = {
       process.exit(0)
     }
 
+    // check if it's an Expo project
+    try {
+      const appJson = `${filesystem.cwd()}/app.json`
+
+      if (!!filesystem.exists(appJson)) {
+        const appJsonContent = await filesystem.readAsync(appJson, 'json')
+
+        if ('expo' in appJsonContent) {
+          const canContinue = await prompt.confirm(
+            'Looks like this is an Expo project, do you want to update the version in the app.json as well?'
+          )
+
+          if (canContinue) {
+            await toolbox.patching.update(appJson, (config) => {
+              config.expo.version = targetVersion
+              return config
+            })
+          }
+        }
+      }
+    } catch (err) {
+      if (options.debug) {
+        spinner.fail()
+        debug(err, 'toolbox.changelog.generate()')
+      } else {
+        spinner.fail(
+          'Was not possible to update the app.json, run it again with --debug'
+        )
+      }
+      process.exit(0)
+    }
+
     // git commit command
     spinner.start(bold(`Commiting ${packageJsonText} and ${changelogText}`))
     try {
